@@ -4,68 +4,53 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:WpfCustomScrollBar;assembly=WpfCustomScrollBar"
     mc:Ignorable="d"
-    Title="MainWindow"
-    Height="350"
-    Width="450">
+    Title="SourceSara.Com"
+    Height="500"
+    Width="720"
+    Background="#1B2738"
+    TextElement.Foreground="#a0afc0"
+    TextBlock.Foreground="#a0afc0">
+    <Window.Resources>
+        <Style TargetType="{x:Type controls:CustomScrollBar}">
+            <Setter Property="ButtonsVisibility" Value="Visible"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="ThumbCornerRadius" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=CornerRadius}"/>
+            <Setter Property="Size" Value="14"/>
+            <Setter Property="Background" Value="#131B27"/>
+            <Setter Property="Foreground" Value="#2e3e51"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="64"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="64"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <TextBlock 
+            FontSize="34"
+            Margin="0,16"
+            TextAlignment="Center"
+            Foreground="#8ab4f8"
+            Text="WPF Custom ScrollBar"/>
+        
         <ScrollViewer
             Grid.Row="1"
-            Margin="64,0"
+            Margin="16"
             VerticalScrollBarVisibility="Auto"
             HorizontalScrollBarVisibility="Auto">
-            <ItemsControl Background="#fafafa">
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-                <ListBoxItem Content="Sample Item"/>
-            </ItemsControl>
+            <ItemsControl 
+                Background="#182333"
+                ItemsSource="{Binding DummyItems}"/>
         </ScrollViewer>
+
+        <controls:MadeByAmRo
+            Grid.Row="2"
+            Margin="0,16"
+            Foreground="#a0afc0"
+            AmRoLogoBrush="#8ab4f8"
+            HeartBrush="#f28b82"/>
     </Grid>
 </Window>
