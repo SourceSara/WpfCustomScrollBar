@@ -1,0 +1,307 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WpfCustomScrollBar">
+
+    <DataTemplate x:Key="CustomScrollBarArrowUpIcon">
+        <Viewbox Stretch="Uniform">
+            <Canvas
+                Width="24" 
+                Height="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Width}">
+                <Path 
+                    Data="M13,20H11V8L5.5,13.5L4.08,12.08L12,4.16L19.92,12.08L18.5,13.5L13,8V20Z" 
+                    Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type RepeatButton}}, Path=Foreground}"/>
+            </Canvas>
+        </Viewbox>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="CustomScrollBarArrowDownIcon">
+        <Viewbox Stretch="Uniform">
+            <Canvas
+                Width="24" 
+                Height="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Width}">
+                <Path 
+                    Data="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z" 
+                    Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type RepeatButton}}, Path=Foreground}"/>
+            </Canvas>
+        </Viewbox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomScrollBarArrowRightIcon">
+        <Viewbox Stretch="Uniform">
+            <Canvas
+                Width="24" 
+                Height="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Width}">
+                <Path 
+                    Data="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" 
+                    Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type RepeatButton}}, Path=Foreground}"/>
+            </Canvas>
+        </Viewbox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomScrollBarArrowLeftIcon">
+        <Viewbox Stretch="Uniform">
+            <Canvas
+                Width="24" 
+                Height="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Width}">
+                <Path 
+                    Data="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" 
+                    Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type RepeatButton}}, Path=Foreground}"/>
+            </Canvas>
+        </Viewbox>
+    </DataTemplate>
+
+    <Style x:Key="CustomScrollBarRepeatButton" TargetType="{x:Type RepeatButton}">
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CustomScrollBar}}, Path=ButtonsVisibility}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border 
+                        BorderThickness="1" 
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter
+                            x:Name="PART_ContentPresenter"
+                            Opacity="0.86"
+                            Focusable="False"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}" 
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="PART_ContentPresenter" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="PART_ContentPresenter" Property="Opacity" Value="0.56"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CustomScrollBarTransparentRepeatButton" TargetType="{x:Type RepeatButton}">
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Rectangle 
+                        Fill="{TemplateBinding Background}" 
+                        Height="{TemplateBinding Height}" 
+                        Width="{TemplateBinding Width}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CustomScrollBarThumb" TargetType="{x:Type Thumb}">
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border>
+                        <Border 
+                            x:Name="ThumbBorder" 
+                            Height="{TemplateBinding Height}"
+                            Width="{TemplateBinding Width}"
+                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
+                            Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CustomScrollBar}}, Path=Foreground}" 
+                            CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CustomScrollBar}}, Path=ThumbCornerRadius}"
+                            Opacity="0.86"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDragging" Value="True">
+                            <Setter TargetName="ThumbBorder" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <DataTrigger 
+                            Value="Vertical" 
+                            Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                AncestorType={x:Type local:CustomScrollBar}}, Path=Orientation}">
+                            <Setter 
+                                TargetName="ThumbBorder" 
+                                Property="Width"
+                                Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                AncestorType={x:Type local:CustomScrollBar}}, Path=Width}"/>
+                        </DataTrigger>
+                        
+                        <DataTrigger 
+                            Value="Horizontal" 
+                            Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+                                AncestorType={x:Type local:CustomScrollBar}}, Path=Orientation}">
+                            <Setter 
+                                TargetName="ThumbBorder" 
+                                Property="Height" 
+                                Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                AncestorType={x:Type local:CustomScrollBar}}, Path=Height}"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="CustomScrollBarVerticalOrientationTemplate" TargetType="{x:Type ScrollBar}">
+        <Border
+            UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CustomScrollBar}}, Path=CornerRadius}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition 
+                        Height="Auto"/>
+                    <RowDefinition
+                        Height="*"/>
+                    <RowDefinition 
+                        Height="Auto"/>
+                </Grid.RowDefinitions>
+                <RepeatButton
+                    x:Name="PART_LineUpButton"
+                    Grid.Row="0"
+                    Margin="0,0,0,4"
+                    Command="{x:Static ScrollBar.LineUpCommand}" 
+                    Style="{StaticResource CustomScrollBarRepeatButton}"
+                    ContentTemplate="{StaticResource CustomScrollBarArrowUpIcon}"/>
+
+                <Track 
+                    x:Name="PART_Track"
+                    Grid.Row="1"
+                    IsDirectionReversed="True">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton
+                            Command="{x:Static ScrollBar.PageUpCommand}"
+                            Style="{StaticResource CustomScrollBarTransparentRepeatButton}"/>
+                    </Track.DecreaseRepeatButton>
+
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton 
+                            Command="{x:Static ScrollBar.PageDownCommand}" 
+                            Style="{StaticResource CustomScrollBarTransparentRepeatButton}"/>
+                    </Track.IncreaseRepeatButton>
+
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource CustomScrollBarThumb}"/>
+                    </Track.Thumb>
+                </Track>
+
+                <RepeatButton 
+                    x:Name="PART_LineDownButton"
+                    Grid.Row="2"
+                    Margin="0,4,0,4"
+                    Command="{x:Static ScrollBar.LineDownCommand}" 
+                    Style="{StaticResource CustomScrollBarRepeatButton}"
+                    ContentTemplate="{StaticResource CustomScrollBarArrowDownIcon}"/>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="CustomScrollBarHorizontalOrientationTemplate" TargetType="{x:Type ScrollBar}">
+        <Border
+            UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CustomScrollBar}}, Path=CornerRadius}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition 
+                        Width="Auto" />
+                    <ColumnDefinition
+                        Width="*"/>
+                    <ColumnDefinition 
+                        Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <RepeatButton
+                    x:Name="PART_LineLeftButton" 
+                    Grid.Column="0"
+                    Margin="0,0,4,0"
+                    Command="{x:Static ScrollBar.LineLeftCommand}" 
+                    Style="{StaticResource CustomScrollBarRepeatButton}"
+                    ContentTemplate="{StaticResource CustomScrollBarArrowLeftIcon}"/>
+
+                <Track 
+                    x:Name="PART_Track"
+                    Grid.Column="1">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton
+                            Command="{x:Static ScrollBar.PageLeftCommand}"
+                            Style="{StaticResource CustomScrollBarTransparentRepeatButton}"/>
+                    </Track.DecreaseRepeatButton>
+
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton 
+                            Command="{x:Static ScrollBar.PageRightCommand}" 
+                            Style="{StaticResource CustomScrollBarTransparentRepeatButton}"/>
+                    </Track.IncreaseRepeatButton>
+
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource CustomScrollBarThumb}"/>
+                    </Track.Thumb>
+                </Track>
+                <RepeatButton 
+                    x:Name="PART_LineRightButton" 
+                    Grid.Column="2"
+                    Margin="4,0,0,0"
+                    Command="{x:Static ScrollBar.LineRightCommand}" 
+                    Style="{StaticResource CustomScrollBarRepeatButton}"
+                    ContentTemplate="{StaticResource CustomScrollBarArrowRightIcon}"/>                              
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    
+    <Style TargetType="{x:Type local:CustomScrollBar}">
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="False"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="Cursor" Value="Arrow"/>
+        <Setter Property="ButtonsVisibility" Value="Visible"/>
+        <Setter Property="Background" Value="#eee"/>
+        <Setter Property="Foreground" Value="#121212"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Opacity" Value=".78"/>
+        <Setter Property="Size" Value="16"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="ThumbCornerRadius" Value="6"/>
+        <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Size}"/>
+        <Setter Property="Template" Value="{StaticResource CustomScrollBarVerticalOrientationTemplate}"/>
+        
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1"/>
+            </Trigger>
+            
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value=".56"/>
+            </Trigger>
+            
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Width" Value="Auto"/>
+                <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Size}"/>
+                <Setter Property="Template" Value="{StaticResource CustomScrollBarHorizontalOrientationTemplate}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+</ResourceDictionary>
