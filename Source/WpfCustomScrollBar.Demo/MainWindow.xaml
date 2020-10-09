@@ -12,16 +12,6 @@
     Background="#1B2738"
     TextElement.Foreground="#a0afc0"
     TextBlock.Foreground="#a0afc0">
-    <Window.Resources>
-        <Style TargetType="{x:Type controls:CustomScrollBar}">
-            <Setter Property="ButtonsVisibility" Value="Visible"/>
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="ThumbCornerRadius" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=CornerRadius}"/>
-            <Setter Property="Size" Value="14"/>
-            <Setter Property="Background" Value="#131B27"/>
-            <Setter Property="Foreground" Value="#2e3e51"/>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -30,13 +20,15 @@
         </Grid.RowDefinitions>
 
         <TextBlock 
+            Grid.Row="0"
             FontSize="34"
             Margin="0,16"
             TextAlignment="Center"
             Foreground="#8ab4f8"
             Text="WPF Custom ScrollBar"/>
-        
+
         <ScrollViewer
+            x:Name="ListScrollViewer"
             Grid.Row="1"
             Margin="16"
             VerticalScrollBarVisibility="Auto"
