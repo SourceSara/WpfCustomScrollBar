@@ -4,6 +4,7 @@
     xmlns:local="clr-namespace:WpfCustomScrollBar">
 
     <Style TargetType="{x:Type local:MadeByAmRo}">
+        <Setter Property="UseLayoutRounding" Value="True"/>
         <Setter Property="Foreground" Value="#121212"/>
         <Setter Property="HeartBrush" Value="#f28b82"/>
         <Setter Property="AmRoLogoBrush" Value="#8ab4f8"/>
